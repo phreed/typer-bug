@@ -1,0 +1,35 @@
+"$schema" = "https://pixi.sh/latest/schema/manifest/schema.json"
+
+[workspace]
+name = "bug-typer"
+version = "0.1.0"
+description = "a bug in typer?"
+authors = [
+  "Fred Eisele <fred.eisele@vanderbilt.edu>"]
+channels = ["conda-forge"]
+platforms = [
+  "linux-64", 
+  ]
+
+[dependencies]
+python = ">=3.12,<3.13"
+
+[pypi-dependencies]
+typer = ">=0.15.0,<0.16"
+typing-extensions = ">=4.13.2,<4.14"
+
+[tasks.typerTest]
+cmd = ["python", "typer-test.py"]
+
+[tasks.typer-hello]
+cmd = ["python", "typer-hello.py"]
+
+[tasks.typer-hello-name]
+cmd = ["python", "typer-hello.py", "fred"]
+
+[tasks.typer-hello-help]
+cmd = ["python", "typer-hello.py", "--help"]
+
+[tasks.typer-main]
+cmd = ["typer", "typer-main.py", "run"]
+
