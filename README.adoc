@@ -56,7 +56,7 @@ pixi run typer-test
 Hello World
 ----
 
-== Now the ones that do not work
+== Bug caused by `click` v8.2
 
 [source,bash]
 ----

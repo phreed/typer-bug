@@ -13,10 +13,7 @@ platforms = [
 
 [dependencies]
 python = ">=3.12,<3.13"
-
-[pypi-dependencies]
 typer = ">=0.15.0,<0.16"
-typing-extensions = ">=4.13.2,<4.14"
 click = ">=8.1.8,<8.2"
 
 [tasks.typer-test]
