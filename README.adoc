@@ -1,0 +1,86 @@
+= A bug? in Typer
+
+Rather than using pip I am using link:https://pixi.sh/latest/[pixi].
+`pixi` uses `uv` internally.
+
+It is easy enough to install:
+[source,bash]
+----
+curl -fsSL https://pixi.sh/install.sh | sh
+----
+
+Here are the results of running these tests.
+`pixi` pulls `typer` from pypi.
+
+You can see all the tasks with: 
+[source,bash]
+----
+pixi run
+----
+
+
+== First the ones that work:
+
+[source,bash]
+----
+pixi run typer-hello foo
+----
+
+[source,text]
+----
+✨ Pixi task (typer-hello): python typer-hello.py foo
+Hello foo
+----
+
+
+
+[source,bash]
+----
+pixi run typer-hello-name
+----
+
+[source,text]
+----
+✨ Pixi task (typer-hello): python typer-hello.py fred
+Hello fred
+----
+
+[source,bash]
+----
+pixi run typer-test
+----
+
+[source,text]
+----
+✨ Pixi task (typer-test): python typer-test.py
+Hello World
+----
+
+== Now the ones that do not work
+
+[source,bash]
+----
+pixi run typer-hello-help
+----
+
+[source,text]
+----
+✨ Pixi task (typer-hello-help): python typer-hello.py --help
+╭──── Traceback (most recent call last) ─────────────────────────────────────────────────────────────╮
+│ /var/home/phreed/Projects/typer-bug/typer-hello.py:9 in <module>                                   │
+│                                                                                                    │
+│    6                                                                                               │
+│    7                                                                                               │
+│    8 if __name__ == "__main__":                                                                    │
+│ ❱  9 │   typer.run(main)                                                                           │
+│   10                                                                                               │
+│   11                                                                                               │
+│                                                                                                    │
+│ ╭─────── locals ────────────────────────────────────────────────────────────────╮                  │
+│ │ typer = <module 'typer' from 'typer-bug/.pixi/envs/default/lib/python3.12/site-packages/typer/__init__.py'> │
+│ ╰───────────────────────────────────────────────────────────────────────────────╯                  │
+│                                                                                                    │
+│ typer-bug/.pixi/envs/default/lib/python3.12/site-packages/typer/main.py:1074 in run                │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────╯
+TypeError: TyperArgument.make_metavar() takes 1 positional argument but 2 were given
+----
